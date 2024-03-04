@@ -1,12 +1,16 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const http_1 = __importDefault(require("http"));
-const server = http_1.default.createServer((req, res) => {
-    console.log(req.url);
-});
-server.listen(808, () => {
-    console.log("Server running");
-});
+const envs_1 = require("./config/envs");
+const router_1 = require("./presentation/router");
+const server_1 = require("./presentation/server");
+(() => {
+    main();
+})();
+function main() {
+    const server = new server_1.Server({
+        port: envs_1.envs.PORT,
+        public_path: envs_1.envs.PUBLIC_PATH,
+        routes: router_1.Approutes.routes,
+    });
+    server.start();
+}
