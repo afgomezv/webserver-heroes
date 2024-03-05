@@ -1,4 +1,5 @@
 import express, { Router } from "express";
+const compression = require("compression");
 import path from "path";
 
 interface Options {
@@ -23,7 +24,8 @@ export class Server {
   async start() {
     //* Middlewares
     this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded parser
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(compression()); // x-www-form-urlencoded parser
 
     //* Public Folder
     this.app.use(express.static(this.publicPath));
