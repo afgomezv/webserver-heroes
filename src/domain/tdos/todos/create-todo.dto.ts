@@ -4,7 +4,8 @@ export class CreateTodoDto {
   static create(props: { [key: string]: any }): [string?, CreateTodoDto?] {
     const { content } = props;
 
-    if (!content) return ["Text property is required", undefined];
+    if (!content || content.length === 0)
+      return ["Text property is required", undefined];
 
     return [undefined, new CreateTodoDto(content)];
   }
